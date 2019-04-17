@@ -1,0 +1,8 @@
+memory info
+free -h
+
+battery info
+upower -i /org/freedesktop/UPower/devices/battery_BAT0
+
+cpu info
+cat /proc/cpuinfo 
