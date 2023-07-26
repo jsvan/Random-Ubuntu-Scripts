@@ -1,0 +1,20 @@
+Subtitles:
+yt-dlp --convert-subs=srt  --write-auto-sub --write-sub --sub-lang "en,en-us,en-GB,automatic-caption-en" --skip-download URL
+
+get mp4:
+-f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
+
+slice time:
+ffmpeg -ss 00:01:00 -to 00:02:00 -i input.mp4 -c copy output.mp4
+
+if audio is out of sync, don't use the copy flag
+putting -ss and -to before -i makes it go faster. Order matters.
+
+You can in principle also try to concatenate the bitstreams without re-encoding them, using the concat demuxer. Create a file called concat.txt and add the following entries (corresponding to the video clips created above):
+file 'part1.mp4'
+file 'short-video.mp4'
+file 'part3.mp4'
+Then concatenate these individual files:
+ffmpeg -f concat -i concat.txt -c copy output.avi
+This however requires your clips to have the same codec, resolution, framerate etc. – so it doesn't work with all kinds of heterogenous sources.
+
