@@ -18,3 +18,8 @@ Then concatenate these individual files:
 ffmpeg -f concat -i concat.txt -c copy output.avi
 This however requires your clips to have the same codec, resolution, framerate etc. – so it doesn't work with all kinds of heterogenous sources.
 
+getting only audio:
+yt-dlp -f 'ba' -x --audio-format mp3 https://www.youtube.com/watch?v=QmgUfF_DCLg -v
+but may produce artifacts, so better to cancel the internal call to ffmpeg and do a simple .webm to mp3 conversion with
+ffmpeg -i IN.webm OUT.mp3
+which should do it well.
